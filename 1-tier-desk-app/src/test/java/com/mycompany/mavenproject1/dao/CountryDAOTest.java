@@ -1,4 +1,4 @@
-package com.mycompany.mavenproject1.dao;
+/*package com.mycompany.mavenproject1.dao;
 
 import com.mycompany.mavenproject1.data.Country;
 import java.util.logging.Level;
@@ -71,3 +71,4 @@ public class CountryDAOTest {
 //        Assert.assertTrue(dao.readAll().size() == 0);
 //    }
 }
+*/

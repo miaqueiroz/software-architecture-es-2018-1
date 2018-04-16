@@ -10,15 +10,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import com.mycompany.mavenproject1.utils.ConnectionDB;
 
 public class CustomerDAO {
 
-    private String dbURL = "jdbc:mysql://localhost:3306/saapp";
-    private String username = "root";
-    private String password = "gabriel";
+    private Connection conn;
+    
+    public CustomerDAO(){
+        this.conn =  ConnectionDB.Conector();
+    }
 
     public void create(Customer customer) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "INSERT INTO customer (name, phone, age, country_id, creditLimit) VALUES (?, ?, ?, ?, ?)";
 
@@ -36,7 +39,14 @@ public class CustomerDAO {
             }
 
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS CUSTOMER DAO");
+            System.err.println("\nERROR ON CREATE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
 
         }
     }
@@ -64,7 +74,7 @@ public class CustomerDAO {
 
         Set<Customer> resultSet = new HashSet<>();
 
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "SELECT * FROM customer";
 
@@ -87,7 +97,14 @@ public class CustomerDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS CUSTOMER DAO");
+            System.err.println("\nERROR ON READALL");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
 
         } catch (Exception ex) {
             // Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,7 +114,7 @@ public class CustomerDAO {
     }
 
     public void update(Customer newCustomer, String name) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "UPDATE customer SET name=?, age=?, country_id=?, phone=?, creditLimit=? WHERE name like ?";
 
@@ -116,13 +133,20 @@ public class CustomerDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS CUSTOMER DAO");
+            System.err.println("\nERROR ON UPDATE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
 
         }
     }
 
     public void delete(String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "DELETE FROM customer WHERE name like ?";
 
@@ -136,7 +160,14 @@ public class CustomerDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS CUSTOMER DAO");
+            System.err.println("\nERROR ON DELETE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
 
         }
     }

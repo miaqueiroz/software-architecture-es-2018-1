@@ -10,15 +10,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import com.mycompany.mavenproject1.utils.ConnectionDB;
 
 public class CountryDAO {
 
-    private String dbURL = "jdbc:mysql://localhost:3306/saapp";
-    private String username = "root";
-    private String password = "gabriel";
+    private Connection conn;
+    
+    public CountryDAO(){
+        this.conn =  ConnectionDB.Conector();
+    }
 
     public void create(Country country) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "INSERT INTO country (name, acronym, digits) VALUES (?, ?, ?)";
 
@@ -34,8 +37,14 @@ public class CountryDAO {
             }
 
         } catch (SQLException ex) {
-            throw new Exception(ex);
-
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS COUNTRY DAO");
+            System.err.println("\nERROR ON CREATE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
         }
     }
 
@@ -71,7 +80,7 @@ public class CountryDAO {
     public Set<Country> readAll() {
         Set<Country> resultSet = new HashSet<>();
 
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "SELECT * FROM country";
 
@@ -88,15 +97,21 @@ public class CountryDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
-
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS COUNTRY DAO");
+            System.err.println("\nERROR ON READALL");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
         }
 
         return resultSet;
     }
 
     public void update(Country newCountry, String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "UPDATE country SET name=?, acronym=?, digits=? WHERE name like ?";
 
@@ -113,13 +128,19 @@ public class CountryDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
-
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS COUNTRY DAO");
+            System.err.println("\nERROR ON UPDATE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
         }
     }
 
     public void delete(String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "DELETE FROM country WHERE name like ?";
 
@@ -133,8 +154,14 @@ public class CountryDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
-
+            System.err.println("\n============================================");
+            System.err.println("\nCLASS COUNTRY DAO");
+            System.err.println("\nERROR ON DELETE");
+            System.err.println("\nCAUSE: " + ex.getCause());
+            System.err.println("\nMESSAGE: " + ex.getMessage());
+            ex.printStackTrace();
+            System.err.println("\n============================================");
+            throw new RuntimeException(ex);
         }
     }
 
