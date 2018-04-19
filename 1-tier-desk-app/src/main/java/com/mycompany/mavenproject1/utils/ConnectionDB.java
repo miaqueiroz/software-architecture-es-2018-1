@@ -18,17 +18,16 @@ public class ConnectionDB {
         
         String driver = "com.mysql.jdbc.Driver";
         
-        String url = "jdbc:mysql://localhost/bdarquitetura?autoReconnect=true&useSSL=false";
+        String url = "jdbc:mysql://localhost/saapp?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC";
         String user = "root";
-        String password = "wi-fi147";
+        String password = "eliane";
         
         try {
             conexao = DriverManager.getConnection(url, user, password);
             return conexao;
         } catch (Exception e) {
             System.err.println("\n============================================");
-            System.err.println("\nCLASSE VISITAS CONECTA BANCO");
-            System.err.println("\nERRO NO MÉTODO GET CONNECTION");
+            System.err.println("\nERRO NO MÉTODO CONNECTIONDB");
             System.err.println("\n " + e.getCause());
             System.err.println("\n " + e.getMessage());
             System.err.println("\n============================================");
