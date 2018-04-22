@@ -1,16 +1,12 @@
 package com.mycompany.mavenproject1.ui;
 
-import com.mycompany.mavenproject1.business.CountryBusiness;
-import com.mycompany.mavenproject1.business.CustomerBusiness;
 import com.mycompany.mavenproject1.data.Country;
 import com.mycompany.mavenproject1.data.Customer;
 import javax.swing.JOptionPane;
 
 public class CustomerUI extends javax.swing.JFrame {
 
-    private CountryBusiness countryBusiness;
-    private CustomerBusiness customerBusiness;
-    
+    private Facade facade;
     private Country selectedCountry;
 
     /**
@@ -20,13 +16,11 @@ public class CustomerUI extends javax.swing.JFrame {
         initComponents();
     }
 
-    CustomerUI(CustomerBusiness customerBusiness, CountryBusiness countryBusiness) {
+    CustomerUI(Facade facade) {
         this();
 
-        this.customerBusiness = customerBusiness;
-        this.countryBusiness = countryBusiness;
-
-        this.countryBusiness.readAll().forEach(item -> countrycombo.addItem(item.getName()));
+        this.facade = facade;
+        this.facade.readAllCountry().forEach(item -> countrycombo.addItem(item.getName()));
     }
 
     /**
@@ -117,7 +111,7 @@ public class CustomerUI extends javax.swing.JFrame {
 
     private void listbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listbtActionPerformed
 
-        listarea.setText(customerBusiness.readAll().toString());
+        listarea.setText(facade.readAllCustomer().toString());
     }//GEN-LAST:event_listbtActionPerformed
 
     private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
@@ -152,7 +146,7 @@ public class CustomerUI extends javax.swing.JFrame {
         c.setCreditLimit(0);
 
         try {
-            customerBusiness.create(c);
+            facade.create(c);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -161,7 +155,7 @@ public class CustomerUI extends javax.swing.JFrame {
 
     private void countrycomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countrycomboActionPerformed
 
-        for (Country currentCountry : countryBusiness.readAll()) {
+        for (Country currentCountry : facade.readAllCountry()) {
             if (currentCountry.getName().equalsIgnoreCase((String) countrycombo.getSelectedItem())) {
                 selectedCountry = currentCountry;
             }

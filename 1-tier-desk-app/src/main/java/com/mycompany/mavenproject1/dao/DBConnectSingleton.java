@@ -8,9 +8,9 @@ public class DBConnectSingleton {
 
     private static Connection conn;
     private static DBConnectSingleton instance;
-    private String dbURL = "jdbc:mysql://localhost:3306/saapp";
+    private String dbURL = "jdbc:mysql://localhost:3306/saapp?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC";
     private String username = "root";
-    private String password = "gabriel";
+    private String password = "eliane";
 
     private DBConnectSingleton() throws SQLException { 
         conn = DriverManager.getConnection(dbURL, username, password);

@@ -1,13 +1,8 @@
 package com.mycompany.mavenproject1.ui;
 
-import com.mycompany.mavenproject1.business.CountryBusiness;
-import com.mycompany.mavenproject1.business.CustomerBusiness;
-
-
 public class MainUI extends javax.swing.JFrame {
 
-    private CustomerBusiness customerBusiness;
-    private CountryBusiness countryBusiness;
+    private Facade facade;
 
     /**
      * Creates new form MainWindow
@@ -15,8 +10,7 @@ public class MainUI extends javax.swing.JFrame {
     public MainUI() {
         initComponents();
 
-        customerBusiness = new CustomerBusiness();
-        countryBusiness = new CountryBusiness();
+        facade = new Facade();
     }
 
     /**
@@ -56,11 +50,11 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void countrybtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countrybtActionPerformed
-        new CountryUI(countryBusiness).setVisible(true);
+        new CountryUI(facade).setVisible(true);
     }//GEN-LAST:event_countrybtActionPerformed
 
     private void customerbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerbtActionPerformed
-        new CustomerUI(customerBusiness, countryBusiness).setVisible(true);
+        new CustomerUI(facade).setVisible(true);
     }//GEN-LAST:event_customerbtActionPerformed
 
     /**
